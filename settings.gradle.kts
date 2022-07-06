@@ -6,6 +6,32 @@ pluginManagement {
     }
 }
 
+plugins {
+    id("com.gradle.enterprise") version "3.10.2"
+    id("com.gradle.common-custom-user-data-gradle-plugin") version "1.7.2"
+}
+
+gradleEnterprise {
+    server = "https://ec2-3-235-21-159.compute-1.amazonaws.com"
+    allowUntrustedServer = true
+
+    buildScan {
+        publishAlways()
+        capture {
+            isTaskInputFiles = true
+        }
+    }
+
+//    buildCache {
+//        local {
+//            isEnabled = true
+//        }
+//        remote<HttpBuildCache> {
+//            isEnabled = false
+//        }
+//    }
+}
+
 apply(from = "gradle/detect-android-sdk.gradle")
 
 rootProject.name = "mockk-root"
