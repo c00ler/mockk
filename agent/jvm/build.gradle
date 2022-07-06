@@ -26,8 +26,8 @@ dependencies {
 task copyMockKDispatcher(type: Copy) {
     dependsOn compileJava
     dependsOn compileKotlin
-    from "${sourceSets.main.java.outputDir}/io/mockk/proxy/jvm/dispatcher"
-    into "${sourceSets.main.java.outputDir}/io/mockk/proxy/jvm/dispatcher"
+    from "${sourceSets.main.java.classesDirectory}/io/mockk/proxy/jvm/dispatcher"
+    into "${sourceSets.main.java.classesDirectory}/io/mockk/proxy/jvm/dispatcher"
     include "JvmMockKDispatcher.class"
     include "JvmMockKWeakMap.class"
     include "JvmMockKWeakMap\$StrongKey.class"
