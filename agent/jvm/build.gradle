@@ -26,12 +26,16 @@ dependencies {
 task copyMockKDispatcher(type: Copy) {
     dependsOn compileJava
     dependsOn compileKotlin
-    from "${sourceSets.main.java.classesDirectory}/io/mockk/proxy/jvm/dispatcher"
-    into "${sourceSets.main.java.classesDirectory}/io/mockk/proxy/jvm/dispatcher"
+
+    def classesDir = sourceSets.main.java.classesDirectory.get()
+    from "$classesDir/io/mockk/proxy/jvm/dispatcher"
+    into "$classesDir/io/mockk/proxy/jvm/dispatcher"
+
     include "JvmMockKDispatcher.class"
     include "JvmMockKWeakMap.class"
     include "JvmMockKWeakMap\$StrongKey.class"
     include "JvmMockKWeakMap\$WeakKey.class"
+
     rename { String fileName ->
         fileName.replace('.class', '.clazz')
     }
