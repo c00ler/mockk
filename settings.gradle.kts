@@ -6,6 +6,31 @@ pluginManagement {
     }
 }
 
+plugins {
+    id("com.gradle.enterprise") version "3.10.2"
+    id("com.gradle.common-custom-user-data-gradle-plugin") version "1.7.2"
+}
+
+gradleEnterprise {
+    buildScan {
+        termsOfServiceUrl = "https://gradle.com/terms-of-service"
+        termsOfServiceAgree = "yes"
+    }
+
+    buildCache {
+        local {
+            isEnabled = true
+            isPush = true
+            directory = getLocalBuildCacheDirectory()
+        }
+    }
+}
+
+fun getLocalBuildCacheDirectory() =
+    gradle.startParameter.projectProperties["build.cache.root"]
+        ?.let { File(it, "build-cache") }
+        ?.also { logger.quiet("Custom build cache location: $it") }
+
 apply(from = "gradle/detect-android-sdk.gradle")
 
 rootProject.name = "mockk-root"
